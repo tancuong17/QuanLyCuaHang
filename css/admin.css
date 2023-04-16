@@ -1,0 +1,663 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    transition: 0.2s linear all;
+}
+
+body {
+    max-height: 100vh;
+}
+
+#login-container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-image: url("https://www.mykioskey.com/wp-content/uploads/2022/06/3.jpg");
+    background-size: cover;
+}
+
+#header {
+    width: 100vw;
+    height: 10vh;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+}
+
+#header img {
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
+}
+
+#header p {
+    font-size: 1.5rem;
+}
+
+#header span {
+    padding: 0.5rem;
+}
+
+#header span:hover {
+    cursor: pointer;
+    background-color: whitesmoke;
+    border-radius: 0.3rem;
+}
+
+#header div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#header button {
+    width: 7rem;
+    height: 2rem;
+    background-color: darkred;
+    color: white;
+    border: 1px solid darkred;
+    border-radius: 0.3rem;
+}
+
+#header button:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#menu {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: -15%;
+    width: 15%;
+    height: 100vh;
+    background-color: whitesmoke;
+    z-index: 100;
+}
+
+#menu img {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
+}
+
+#menu p {
+    padding: 1rem;
+}
+
+#menu p:hover {
+    cursor: pointer;
+    background-color: white;
+}
+
+.active {
+    background-color: white;
+}
+
+#user-modal {
+    display: none;
+    justify-content: center;
+    flex-direction: column;
+    position: fixed;
+    top: 3rem;
+    right: 1rem;
+    width: 12%;
+    height: 18%;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    z-index: 100;
+}
+
+#user-modal p {
+    padding: 0.5rem;
+}
+
+#user-modal p:hover {
+    background-color: whitesmoke;
+}
+
+#tab-container {
+    position: relative;
+}
+
+.tab {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    width: 100vw;
+    height: 90vh;
+    background-color: white;
+}
+
+.active-tab {
+    display: flex;
+}
+
+#sell-container {
+    height: 90vh;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.product-choose-container {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.5rem;
+}
+
+.product-choose-header {
+    height: 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-choose-body {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    height: 95%;
+    gap: 0.5rem;
+    overflow: auto;
+}
+
+
+.product-choose-body::-webkit-scrollbar {
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+.product-choose-body::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+}
+
+.product {
+    height: max-content;
+}
+
+.product img {
+    width: 100%;
+    height: 10rem;
+    border-radius: 0.3rem;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.product-choose-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+    height: 5%;
+}
+
+.product-choose-footer div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.product-choose-footer img {
+    width: 1rem;
+    height: 1rem;
+    object-fit: cover;
+}
+
+#create-order-container {
+    height: 90vh;
+    padding: 0.5rem 0.5rem 0 0.5rem;
+    border-left: 1px solid lightgray;
+}
+
+.create-order-header {
+    height: 8%;
+}
+
+.create-order-body {
+    height: 84%;
+}
+
+.create-order-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    height: 8%;
+    padding-right: 0.5rem;
+    background-color: white;
+}
+
+.create-order-footer button {
+    width: 7rem;
+    height: 2rem;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    border-radius: 0.3rem;
+}
+
+.form-search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3rem;
+    border-radius: 0.3rem;
+    border: 1px solid lightgray;
+}
+
+.form-search input {
+    border: none;
+    outline: none;
+}
+
+.form-search img {
+    width: 1rem;
+    height: 1rem;
+    object-fit: cover;
+}
+
+.form {
+    height: 10%;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 2fr;
+    padding-right: 0.5rem;
+}
+
+.form select,
+.form input {
+    padding: 0.3rem;
+    font-size: 1rem;
+}
+
+#table {
+    height: 75vh;
+    overflow: auto;
+    padding-right: 0.5rem;
+}
+
+#table-order input, #table-order select{
+    width: 3rem;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+
+td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+td img {
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: cover;
+}
+
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    position: sticky;
+    top: -0.1px;
+    background-color: whitesmoke;
+}
+
+#table::-webkit-scrollbar {
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+#table::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+}
+
+#product-manager {
+    height: 90vh;
+}
+
+#product-manager-header {
+    height: 8vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+}
+
+#product-manager-header button {
+    width: 7rem;
+    height: 2rem;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    border-radius: 0.3rem;
+}
+
+#product-container {
+    height: 82vh;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+    padding: 0.5rem;
+    overflow: auto;
+}
+
+#product-container::-webkit-scrollbar {
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+#product-container::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+}
+
+#add-product-container,
+#update-product-container,
+#add-price-container,
+#update-price-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+}
+
+.background {
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.7;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.search-container{
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.refresh-icon{
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: cover;
+}
+
+#add-product-container .modal,
+#update-product-container .modal,
+#add-price-container .modal,
+#update-price-container .modal {
+    width: 20%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: whitesmoke;
+    display: grid;
+    grid-template-rows: 1fr 15fr 1fr;
+    padding: 0.5rem;
+}
+
+#file,
+#file-update {
+    width: 0;
+    height: 0;
+}
+
+#image,
+#image-update {
+    width: 10rem;
+    height: 10rem;
+    object-fit: cover;
+    border-radius: 0.3rem;
+}
+
+#add-product-container .modal-header,
+#update-product-container .modal-header,
+#add-price-container .modal-header,
+#update-price-container .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#add-product-container .modal-header img,
+#update-product-container .modal-header img,
+#add-price-container .modal-header img,
+#update-price-container .modal-header img {
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
+}
+
+#add-product-container .modal-body,
+#update-product-container .modal-body,
+#add-price-container .modal-body,
+#update-price-container .modal-body {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+#add-price-container .modal-body select {
+    width: 100%;
+    border: none;
+    font-size: 1rem;
+    background-color: transparent;
+}
+
+#add-product-container .modal-body fieldset,
+#update-product-container .modal-body fieldset,
+#add-price-container .modal-body fieldset,
+#update-price-container .modal-body fieldset {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid lightgray;
+}
+
+#add-product-container .modal-body fieldset input,
+#update-product-container .modal-body fieldset input,
+#add-price-container .modal-body fieldset input,
+#update-price-container .modal-body fieldset input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 1rem;
+}
+
+#add-product-container .modal-footer button,
+#update-product-container .modal-footer button,
+#add-price-container .modal-footer button,
+#update-price-container .modal-footer button {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+}
+
+#order-manager {
+    height: 90vh;
+}
+
+#order-manager-header {
+    height: 8vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+}
+
+#order-manager-header button {
+    width: 7rem;
+    height: 2rem;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    border-radius: 0.3rem;
+}
+
+#order-container {
+    height: 82vh;
+    overflow: auto;
+}
+
+#order-container::-webkit-scrollbar {
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+#order-container::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+}
+
+.order {
+    width: 25%;
+    float: left;
+    padding: 0.5rem;
+}
+
+.item-order {
+    padding: 0.5rem;
+    height: 5rem;
+    border-radius: 0.3rem;
+    border: 1px solid lightgray;
+}
+
+
+.item-order:hover {
+    cursor: pointer;
+    background-color: lightgray;
+}
+
+#detail-order-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+}
+
+#detail-order-container .modal {
+    width: 40%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: whitesmoke;
+    display: grid;
+    grid-template-rows: 1fr 15fr 1fr;
+    padding: 0.5rem;
+}
+
+#detail-order-container .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#detail-order-container .modal-header img {
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
+}
+
+#detail-order-container .modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+#detail-order-container .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#detail-order-container .modal-footer button {
+    width: 30%;
+    height: 100%;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    border-radius: 0.3rem;
+}
+
+#price-manager {
+    height: 90vh;
+}
+
+#price-manager-header {
+    height: 8vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+}
+
+.form-header {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+#price-manager-header button {
+    width: 7rem;
+    height: 1.8rem;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    border-radius: 0.3rem;
+}
+
+#table-price, #bill-table {
+    height: 82vh;
+    padding: 0.5rem;
+    overflow: auto;
+}
+
+#table-price::-webkit-scrollbar {
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+#table-price::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+}
+
+#table-price th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    position: sticky;
+    top: -0.7rem;
+    background-color: whitesmoke;
+}
