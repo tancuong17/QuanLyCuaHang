@@ -177,6 +177,8 @@ function UpdateProduct() {
 
 function OpenAddPriceModal() {
     document.getElementById("add-price-container").style.display = "grid";
+    $("#startDate").attr("min", new Date().toISOString().slice(0, 10));
+    $("#endDate").attr("min", new Date().toISOString().slice(0, 10));
     $("#startDate").val(new Date().toISOString().slice(0, 10));
     $("#endDate").val(new Date().toISOString().slice(0, 10));
 }
@@ -240,6 +242,7 @@ function OpenUpdatePriceModal(e, id) {
     }
     else {
         document.getElementById("startDateUpdate").disabled = false;
+        $("#endDateUpdate").attr("min", new Date().toISOString().slice(0, 10));
     }
     if (new Date(e.target.parentElement.parentElement.children[3].innerHTML).getTime() < new Date().getTime()) {
         document.getElementById("endDateUpdate").disabled = true;
@@ -248,6 +251,8 @@ function OpenUpdatePriceModal(e, id) {
     else {
         document.getElementById("endDateUpdate").disabled = false;
         document.getElementById("update-price-btn").disabled = false;
+        $("#startDateUpdate").attr("min", new Date().toISOString().slice(0, 10));
+        $("#endDateUpdate").attr("min", new Date().toISOString().slice(0, 10));
     }
     document.getElementById("startDateUpdate").value = e.target.parentElement.parentElement.children[2].innerHTML;
     document.getElementById("endDateUpdate").value = e.target.parentElement.parentElement.children[3].innerHTML;
@@ -261,6 +266,8 @@ function CloseUpdatePriceModal() {
 function UpdatePrice() {
     let startDate = $("#startDateUpdate").val();
     let endDate = $("#endDateUpdate").val();
+    console.log(startDate);
+    console.log(endDate);
     if (new Date(startDate).getTime() > new Date(endDate).getTime())
         alert("Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc!");
     else {
@@ -342,17 +349,20 @@ function Pay() {
     for (let i = 0; i < quantityElement.length; i++) {
         listProductInOrder.push({ "id": listIdProductInOrder[i], "quantity": quantityElement[i].value });
     }
-    $.ajax({
-        url: "http://localhost/quanlycuahang/api/addBill",
-        type: "post",
-        dataType: "text",
-        data: { "list": listProductInOrder },
-        success: function (result) {
-            alert("Thêm hóa đơn thành công!");
-            let items = document.querySelectorAll("#table-order tr");
-            var a = window.open('', '', 'height=500, width=500');
-            a.document.write('<html>');
-            a.document.write(`<body >
+    if (quantityElement.length == 0)
+        alert("Không tạo hóa đơn thành công vì hóa đơn chưa có sản phẩm!");
+    else {
+        $.ajax({
+            url: "http://localhost/quanlycuahang/api/addBill",
+            type: "post",
+            dataType: "text",
+            data: { "list": listProductInOrder },
+            success: function (result) {
+                alert("Thêm hóa đơn thành công!");
+                let items = document.querySelectorAll("#table-order tr");
+                var a = window.open('', '', 'height=500, width=500');
+                a.document.write('<html>');
+                a.document.write(`<body >
                         <p style="text-align: center">NTC MilkTea</p>
                         <p style="text-align: center; font-size: 0.7rem">Đ/c: 161 Phan Huy Ích, phường 12, quận Gò Vấp, TPHCM</p>
                         <p style="text-align: center; font-size: 0.7rem">Sđt: 0358698521</p>
@@ -366,34 +376,35 @@ function Pay() {
                                 <th>T.Tiền</th>
                             </tr>
                     `);
-            for (let i = 1; i < items.length; i++) {
+                for (let i = 1; i < items.length; i++) {
 
-                let str1 = items[i].children[1].innerHTML.replace(",", "");
-                let str2 = str1.replace("đ", "");
-                let priceTotal = Number(str2) * items[i].children[2].children[0].value;
-                totalPay += priceTotal;
-                a.document.write(`<tr >
+                    let str1 = items[i].children[1].innerHTML.replace(",", "");
+                    let str2 = str1.replace("đ", "");
+                    let priceTotal = Number(str2) * items[i].children[2].children[0].value;
+                    totalPay += priceTotal;
+                    a.document.write(`<tr >
                             <td >`+ items[i].children[0].innerHTML + `</td >
                             <td>`+ items[i].children[1].innerHTML + `</td>
                             <td>`+ items[i].children[2].children[0].value + `</td>
                             <td>`+ priceTotal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + "đ" + `</td>
                         </tr > `);
+                }
+                a.document.write(`<p>Tổng tiền: ` + totalPay.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + `đ</p>`);
+                a.document.write('</table></body></html>');
+                a.document.close();
+                a.print();
+                listIdProductInOrder = [];
+                let tr = document.querySelectorAll("#table-order tr");
+                for (let i = 1; i < tr.length; i++) {
+                    tr[i].remove();
+                }
+                $("#quantity-in-order").text("Số lượng: 0");
             }
-            a.document.write(`<p>Tổng tiền: ` + totalPay.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + `đ</p>`);
-            a.document.write('</table></body></html>');
-            a.document.close();
-            a.print();
-            listIdProductInOrder = [];
-            let tr = document.querySelectorAll("#table-order tr");
-            for (let i = 1; i < tr.length; i++) {
-                tr[i].remove();
-            }
-            $("#quantity-in-order").text("Số lượng: 0");
-        }
-    });
+        });
+    }
 }
 
-function SearchProduct() {
+function SearchProductChoose() {
     document.getElementsByClassName("product-choose-body")[0].style.gridTemplateColumns = "repeat(5, 1fr)";
     let keyword = $("#keyword").val();
     let products = document.querySelectorAll("#containerChoose .product");
@@ -411,7 +422,7 @@ function SearchProduct() {
             dataType: "json",
             data: { "keyword": keyword },
             success: function (result) {
-                if (result.length != 0) {
+                if (result.length > 1) {
                     for (let i = 0; i < result.length; i++) {
                         if (result[i].price != null) {
                             $("#containerChoose").append(`
@@ -422,6 +433,21 @@ function SearchProduct() {
                             </div>
                         `);
                         }
+                    }
+                }
+                else if (result.length == 1) {
+                    if (result[0].price == null) {
+                        document.getElementsByClassName("product-choose-body")[0].style.gridTemplateColumns = "repeat(1, 1fr)";
+                        $("#containerChoose").append(`
+                        <p id="false">Không tìm thấy sản phẩm!</p>`);
+                    }
+                    else {
+                        $("#containerChoose").append(`
+                        <div class="product" onclick="AddProductToOrder(event, `+ result[0].id + `)">
+                            <img src="`+ result[0].image + `" alt="image" />
+                            <p>`+ result[0].name + `</p>
+                            <p>`+ result[0].price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + `đ</p>
+                        </div>`);
                     }
                 }
                 else {
@@ -453,6 +479,123 @@ function RefreshProductChoose() {
                     </div >
                     `);
             }
+        }
+    });
+}
+
+function SearchBill() {
+    let keyword = $("#keywordBill").val();
+    if (keyword == "")
+        alert("Bạn chưa nhập mã hóa đơn!");
+    else {
+        $.ajax({
+            type: "post",
+            url: "http://localhost/quanlycuahang/api/searchBill",
+            data: { keyword: keyword },
+            dataType: "json",
+            success: function (response) {
+                if (response != null) {
+                    let tr = document.querySelectorAll("#bill-table table tr");
+                    for (let i = 1; i < tr.length; i++) {
+                        tr[i].remove();
+                    }
+                    $("#bill-table table").append(`
+                        <tr>
+                            <td>`+ response.id + `</td>
+                            <td>`+ response.quantity + `</td>
+                            <td>`+ response.createDate + `</td>
+                            <td>`+ response.total + `</td>
+                            <td>`+ response.name + `</td>
+                            <td style="text-align: center;">
+                                <img onclick="OpenDetailOrderModal(event, `+ response.id + `)"
+                                    src="https://cdn-icons-png.flaticon.com/512/4305/4305363.png" alt="image" />
+                            </td>
+                        </tr>
+                    `);
+                }
+                else
+                    alert("Không tìm thấy hóa đơn!");
+            }
+        });
+    }
+}
+
+function RefreshBill() {
+    let tr = document.querySelectorAll("#bill-table table tr");
+    for (let i = 1; i < tr.length; i++) {
+        tr[i].remove();
+    }
+    $.getJSON("http://localhost/quanlycuahang/api/getBills",
+        function (data, textStatus, jqXHR) {
+            for (let i = 0; i < data.length; i++) {
+                $("#bill-table table").append(`
+                        <tr>
+                            <td>`+ data[i].id + `</td>
+                            <td>`+ data[i].quantity + `</td>
+                            <td>`+ data[i].createDate + `</td>
+                            <td>`+ data[i].total + `</td>
+                            <td>`+ data[i].name + `</td>
+                            <td style="text-align: center;">
+                                <img onclick="OpenDetailOrderModal(event, `+ data[i].id + `)"
+                                    src="https://cdn-icons-png.flaticon.com/512/4305/4305363.png" alt="image" />
+                            </td>
+                        </tr>
+                    `);
+            }
+        }
+    );
+}
+
+function SearchProduct() {
+    let keyword = $("#keywordProduct").val();
+    if (keyword == "")
+        alert("Bạn chưa nhập từ khóa!")
+    else {
+        $.ajax({
+            url: "http://localhost/quanlycuahang/api/searchProduct",
+            type: "post",
+            dataType: "json",
+            data: { "keyword": keyword },
+            success: function (result) {
+                if (result.length > 1) {
+                    let products = document.querySelectorAll("#product-container .product");
+                    for (let i = 0; i < products.length; i++) {
+                        products[i].remove();
+                    }
+                    for (let i = 0; i < result.length; i++) {
+                        if (result[i].price != null) {
+                            $("#product-container").prepend(`
+                                <div class="product" onclick="OpenDetailProductModal(event)">
+                                    <img src="http://localhost/quanlycuahang/`+ result[i].image + `" alt="image" />
+                                    <p>Mã: `+ result[i].id + `</p>
+                                    <p>`+ result[i].name + `</p>
+                                    <p>Chưa có giá</p>
+                                </div>`);
+                        }
+                    }
+                }
+                else {
+                    alert("Không tìm thấy sản phẩm!");
+                }
+            }
+        });
+    }
+}
+
+function RefreshProduct() {
+    let products = document.querySelectorAll("#product-container .product");
+    for (let i = 0; i < products.length; i++) {
+        products[i].remove();
+    }
+    $.getJSON("http://localhost/quanlycuahang/api/getProducts", function (data, status) {
+        for (let i = 0; i < data.length; i++) {
+            $("#product-container").prepend(`
+                <div class="product" onclick="OpenDetailProductModal(event)">
+                    <img src="http://localhost/quanlycuahang/`+ data[i].image + `" alt="image" />
+                    <p>Mã: `+ data[i].id + `</p>
+                    <p>`+ data[i].name + `</p>
+                    <p>Chưa có giá</p>
+                </div>`);
         }
     });
 }

@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-04-15 03:38:23
+/* Smarty version 4.3.0, created on 2023-04-17 07:41:02
   from 'C:\xampp\htdocs\quanlycuahang\views\priceTab.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_643a000fee2e26_35109881',
+  'unifunc' => 'content_643cdbeedc89c4_96901175',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_643a000fee2e26_35109881 (Smarty_Internal_Template $_smarty_tpl) {
+function content_643cdbeedc89c4_96901175 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="tab" id="price-manager">
     <div id="price-manager-header">
         <p style="font-size: 1.2rem;">Bảng giá</p>

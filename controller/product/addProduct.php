@@ -9,5 +9,5 @@
     $stament = $connect->prepare("INSERT INTO product VALUES (?,?,?,?)");
     $stament->execute([null, $name, $nameImage, date("Y-m-d H:i:s")]);
     $id = $connect->lastInsertId();
-    echo json_encode(new Product($id, $name, $nameImage, date("Y-m-d H:i:s")));
+    echo json_encode(new Product($id, $name, $nameImage, date("Y-m-d H:i:s")), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 ?>

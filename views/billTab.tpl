@@ -1,9 +1,13 @@
 <div class="tab" id="order-manager">
     <div id="order-manager-header">
         <p style="font-size: 1.2rem;">Danh sách hóa đơn</p>
-        <div class="form-search">
-            <input placeholder="Mã hóa đơn..." />
-            <img src="https://cdn-icons-png.flaticon.com/512/3917/3917132.png" alt="image" />
+        <div class="search-container">
+            <img onclick="RefreshBill()" src="https://cdn-icons-png.flaticon.com/512/521/521260.png" alt="image"
+                class="refresh-icon" />
+            <div class="form-search">
+                <input id="keywordBill" placeholder="Mã hóa đơn..." />
+                <img onclick="SearchBill()" src="https://cdn-icons-png.flaticon.com/512/3917/3917132.png" alt="image" />
+            </div>
         </div>
     </div>
     <div id="order-container">
@@ -25,7 +29,8 @@
                         <td>{$bill.total}</td>
                         <td>{$bill.name}</td>
                         <td style="text-align: center;">
-                            <img onclick="OpenDetailOrderModal(event, {$bill.id})" src="https://cdn-icons-png.flaticon.com/512/4305/4305363.png" alt="image" />
+                            <img onclick="OpenDetailOrderModal(event, {$bill.id})"
+                                src="https://cdn-icons-png.flaticon.com/512/4305/4305363.png" alt="image" />
                         </td>
                     </tr>
                 {/foreach}
@@ -52,7 +57,7 @@
                 <table id="table-product-in-bill">
                     <tr>
                         <th>Thức uống</th>
-                        <th>Size</th>
+                        <th>SL</th>
                         <th>ĐG</th>
                         <th>T.Tiền</th>
                     </tr>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-04-15 03:38:23
+/* Smarty version 4.3.0, created on 2023-04-17 08:22:10
   from 'C:\xampp\htdocs\quanlycuahang\views\sellTab.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_643a000f5f8e25_39542261',
+  'unifunc' => 'content_643ce592d9d618_26758681',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c0de9e7feaaaecacc061374d66f0b8cf8404f180' => 
     array (
       0 => 'C:\\xampp\\htdocs\\quanlycuahang\\views\\sellTab.tpl',
-      1 => 1681521633,
+      1 => 1681712506,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_643a000f5f8e25_39542261 (Smarty_Internal_Template $_smarty_tpl) {
+function content_643ce592d9d618_26758681 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="tab active-tab" id="sell-container">
     <div class="product-choose-container">
         <div class="product-choose-header">
@@ -29,7 +29,7 @@ function content_643a000f5f8e25_39542261 (Smarty_Internal_Template $_smarty_tpl)
                 <img onclick="RefreshProductChoose()" src="https://cdn-icons-png.flaticon.com/512/521/521260.png" alt="image" class="refresh-icon"/>
                 <div class="form-search">
                     <input placeholder="Tên sản phẩm..." id="keyword"/>
-                    <img onclick="SearchProduct()" src="https://cdn-icons-png.flaticon.com/512/3917/3917132.png" alt="image" />
+                    <img onclick="SearchProductChoose()" src="https://cdn-icons-png.flaticon.com/512/3917/3917132.png" alt="image" />
                 </div>
             </div>
         </div>

@@ -7,5 +7,5 @@
     while ($row = $stament->fetch()) {
         array_push($list, array("name" => $row['name'], "quantity" => $row["quantity"], "price" => $row["price"]));
     }
-    echo json_encode($list);
+    echo json_encode($list, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 ?>

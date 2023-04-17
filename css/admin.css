@@ -644,16 +644,16 @@ th {
     overflow: auto;
 }
 
-#table-price::-webkit-scrollbar {
+#table-price::-webkit-scrollbar, #bill-table::-webkit-scrollbar {
     width: 6px;
     background-color: #F5F5F5;
 }
 
-#table-price::-webkit-scrollbar-thumb {
+#table-price::-webkit-scrollbar-thumb, #bill-table::-webkit-scrollbar-thumb {
     background-color: lightgray;
 }
 
-#table-price th {
+#table-price th, #bill-table th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;

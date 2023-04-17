@@ -6,7 +6,7 @@
                 <img onclick="RefreshProductChoose()" src="https://cdn-icons-png.flaticon.com/512/521/521260.png" alt="image" class="refresh-icon"/>
                 <div class="form-search">
                     <input placeholder="Tên sản phẩm..." id="keyword"/>
-                    <img onclick="SearchProduct()" src="https://cdn-icons-png.flaticon.com/512/3917/3917132.png" alt="image" />
+                    <img onclick="SearchProductChoose()" src="https://cdn-icons-png.flaticon.com/512/3917/3917132.png" alt="image" />
                 </div>
             </div>
         </div>

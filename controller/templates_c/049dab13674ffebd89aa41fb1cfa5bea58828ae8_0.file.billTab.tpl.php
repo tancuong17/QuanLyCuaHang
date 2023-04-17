@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-04-15 03:38:23
+/* Smarty version 4.3.0, created on 2023-04-17 07:41:02
   from 'C:\xampp\htdocs\quanlycuahang\views\billTab.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_643a000f8b3b92_54879355',
+  'unifunc' => 'content_643cdbee7fd4b0_64710593',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '049dab13674ffebd89aa41fb1cfa5bea58828ae8' => 
     array (
       0 => 'C:\\xampp\\htdocs\\quanlycuahang\\views\\billTab.tpl',
-      1 => 1681369516,
+      1 => 1681708036,
       2 => 'file',
     ),
   ),
@@ -20,13 +20,17 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_643a000f8b3b92_54879355 (Smarty_Internal_Template $_smarty_tpl) {
+function content_643cdbee7fd4b0_64710593 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="tab" id="order-manager">
     <div id="order-manager-header">
         <p style="font-size: 1.2rem;">Danh sách hóa đơn</p>
-        <div class="form-search">
-            <input placeholder="Mã hóa đơn..." />
-            <img src="https://cdn-icons-png.flaticon.com/512/3917/3917132.png" alt="image" />
+        <div class="search-container">
+            <img onclick="RefreshBill()" src="https://cdn-icons-png.flaticon.com/512/521/521260.png" alt="image"
+                class="refresh-icon" />
+            <div class="form-search">
+                <input id="keywordBill" placeholder="Mã hóa đơn..." />
+                <img onclick="SearchBill()" src="https://cdn-icons-png.flaticon.com/512/3917/3917132.png" alt="image" />
+            </div>
         </div>
     </div>
     <div id="order-container">
@@ -59,7 +63,8 @@ $_smarty_tpl->tpl_vars['bill']->do_else = false;
 </td>
                         <td style="text-align: center;">
                             <img onclick="OpenDetailOrderModal(event, <?php echo $_smarty_tpl->tpl_vars['bill']->value['id'];?>
-)" src="https://cdn-icons-png.flaticon.com/512/4305/4305363.png" alt="image" />
+)"
+                                src="https://cdn-icons-png.flaticon.com/512/4305/4305363.png" alt="image" />
                         </td>
                     </tr>
                 <?php
@@ -88,7 +93,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 <table id="table-product-in-bill">
                     <tr>
                         <th>Thức uống</th>
-                        <th>Size</th>
+                        <th>SL</th>
                         <th>ĐG</th>
                         <th>T.Tiền</th>
                     </tr>
