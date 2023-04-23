@@ -14,11 +14,11 @@
         <div id="bill-table">
             <table>
                 <tr>
-                    <th>Mã hóa đơn</th>
-                    <th>Số lượng đồ uống</th>
-                    <th>Ngày mua</th>
-                    <th>Tổng tiền</th>
-                    <th>Người bán</th>
+                    <th>MÃ</th>
+                    <th>SỐ LƯỢNG SẢN PHẨM</th>
+                    <th>NGÀY MUA</th>
+                    <th>TỔNG TIỀN</th>
+                    <th>NGƯỜI BÁN</th>
                     <th></th>
                 </tr>
                 {foreach from=$bills item=bill}
@@ -56,10 +56,10 @@
             <div id="table">
                 <table id="table-product-in-bill">
                     <tr>
-                        <th>Thức uống</th>
+                        <th>SẢN PHẨM</th>
                         <th>SL</th>
                         <th>ĐG</th>
-                        <th>T.Tiền</th>
+                        <th>T.TIỀN</th>
                     </tr>
                 </table>
             </div>

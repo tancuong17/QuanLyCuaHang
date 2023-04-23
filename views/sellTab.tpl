@@ -30,7 +30,7 @@
             <div id="table">
                 <table id="table-order">
                     <tr>
-                        <th>Thức uống</th>
+                        <th>SẢN PHẨM</th>
                         <th>ĐG</th>
                         <th>SL</th>
                         <th></th>

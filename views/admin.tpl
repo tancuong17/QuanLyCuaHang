@@ -22,19 +22,22 @@
         <p onclick="OpenTab(event, 1)">HÓA ĐƠN</p>
         <p onclick="OpenTab(event, 2)">SẢN PHẨM</p>
         <p onclick="OpenTab(event, 3)">BẢNG GIÁ</p>
+        <p onclick="OpenTab(event, 4)">THỐNG KÊ</p>
     </div>
     <div id="user-modal">
         <p>Thông tin</p>
         <p>Đổi mật khẩu</p>
-        <p>Đăng xuất</p>
+        <p onclick="Logout()">Đăng xuất</p>
     </div>
     <div id="tab-container">
         {include file="./sellTab.tpl"}
         {include file="./billTab.tpl"}
         {include file="./productTab.tpl"}
         {include file="./priceTab.tpl"}
+        {include file="./statisticalTab.tpl"}
     </div>
 </body>
-<script src="js/admin"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="js/index"></script>
+<script src="js/admin"></script>
 </html>

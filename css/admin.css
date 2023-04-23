@@ -124,6 +124,7 @@ body {
 
 #user-modal p:hover {
     background-color: whitesmoke;
+    cursor: pointer;
 }
 
 #tab-container {
@@ -374,6 +375,7 @@ th {
 }
 
 #add-product-container,
+#add-product-excel-container,
 #update-product-container,
 #add-price-container,
 #update-price-container {
@@ -410,7 +412,7 @@ th {
 #add-product-container .modal,
 #update-product-container .modal,
 #add-price-container .modal,
-#update-price-container .modal {
+#update-price-container .modal{
     width: 20%;
     height: 100vh;
     position: absolute;
@@ -421,6 +423,19 @@ th {
     grid-template-rows: 1fr 15fr 1fr;
     padding: 0.5rem;
 }
+
+#add-product-excel-container .modal {
+    width: 40%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: whitesmoke;
+    display: grid;
+    grid-template-rows: 1fr 15fr 1fr;
+    padding: 0.5rem;
+}
+
 
 #file,
 #file-update {
@@ -439,7 +454,8 @@ th {
 #add-product-container .modal-header,
 #update-product-container .modal-header,
 #add-price-container .modal-header,
-#update-price-container .modal-header {
+#update-price-container .modal-header,
+#add-product-excel-container .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -448,7 +464,8 @@ th {
 #add-product-container .modal-header img,
 #update-product-container .modal-header img,
 #add-price-container .modal-header img,
-#update-price-container .modal-header img {
+#update-price-container .modal-header img,
+#add-product-excel-container .modal-header img {
     width: 2rem;
     height: 2rem;
     object-fit: cover;
@@ -457,7 +474,7 @@ th {
 #add-product-container .modal-body,
 #update-product-container .modal-body,
 #add-price-container .modal-body,
-#update-price-container .modal-body {
+#update-price-container .modal-body{
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -495,7 +512,8 @@ th {
 #add-product-container .modal-footer button,
 #update-product-container .modal-footer button,
 #add-price-container .modal-footer button,
-#update-price-container .modal-footer button {
+#update-price-container .modal-footer button, 
+#add-product-excel-container .modal-footer button{
     width: 100%;
     height: 100%;
     background-color: black;
@@ -535,6 +553,15 @@ th {
 }
 
 #order-container::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+}
+
+#product-excel-container::-webkit-scrollbar {
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+#product-excel-container::-webkit-scrollbar-thumb {
     background-color: lightgray;
 }
 

@@ -2,30 +2,37 @@
     <div id="price-manager-header">
         <p style="font-size: 1.2rem;">Bảng giá</p>
         <div class="form-header">
-            <div class="form-search">
-                <input placeholder="Mã giá..." />
-                <img src="https://cdn-icons-png.flaticon.com/512/3917/3917132.png" alt="image" />
+            <div class="search-container">
+                <img onclick="RefreshPrices()" src="https://cdn-icons-png.flaticon.com/512/521/521260.png"
+                    alt="image" class="refresh-icon" />
+                <div class="form-search">
+                    <input placeholder="Tên sản phẩm..." id="keywordPrice"/>
+                    <img onclick="SearchPrice()"  src="https://cdn-icons-png.flaticon.com/512/3917/3917132.png" alt="image" />
+                </div>
+                <button onclick="OpenAddPriceModal()">Thêm bảng giá</button>
             </div>
-            <button onclick="OpenAddPriceModal()">Thêm bảng giá</button>
         </div>
     </div>
     <div id="table-price">
         <table id="prices">
             <tr>
-                <th>ĐỒ UỐNG</th>
+                <th>MÃ</th>
+                <th>SẢN PHẨM</th>
                 <th>GIÁ</th>
                 <th>NGÀY BẮT ĐẦU</th>
                 <th>NGÀY KẾT THÚC</th>
                 <th></th>
             </tr>
-            {foreach from=$prices item=price}
+            {foreach from=$prices key=i item=price}
                 <tr>
+                    <td>{$price.id}</td>
                     <td>{$price.nameProduct}</td>
                     <td>{$price.price}</td>
                     <td>{$price.startDate}</td>
                     <td>{$price.endDate}</td>
                     <td style="text-align: center;">
-                        <img onclick="OpenUpdatePriceModal(event, {$price.productId})" src="https://cdn-icons-png.flaticon.com/512/875/875100.png" alt="image" />
+                        <img onclick="OpenUpdatePriceModal(event, {$price.id}, {$i + 1}, {$price.idProduct})"
+                            src="https://cdn-icons-png.flaticon.com/512/875/875100.png" alt="image" />
                     </td>
                 </tr>
             {/foreach}

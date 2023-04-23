@@ -1,6 +1,7 @@
 {
     "require": {
         "smarty/smarty": "^4.3",
-        "mpdf/mpdf": "^8.1"
+        "mpdf/mpdf": "^8.1",
+        "phpoffice/phpspreadsheet": "^1.28"
     }
 }

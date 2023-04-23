@@ -12,12 +12,13 @@
     <div id="login-container">
         <div id="login">
             <span>NTC MILKTEA</span>
-            <input placeholder="Số điện thoại..."/>
-            <input type="password" placeholder="Mật khẩu..."/>
+            <input placeholder="Số điện thoại..." id="phonenumber"/>
+            <input type="password" placeholder="Mật khẩu..." id="password"/>
             <button onclick="Login()">ĐĂNG NHẬP</button>
         </div>
     </div>
 </body>
-<script src="js/index"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="js/index"></script>
+<script src="js/admin"></script>
 </html>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-04-17 08:22:10
+/* Smarty version 4.3.1, created on 2023-04-20 08:11:52
   from 'C:\xampp\htdocs\quanlycuahang\views\sellTab.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
-  'version' => '4.3.0',
-  'unifunc' => 'content_643ce592d9d618_26758681',
+  'version' => '4.3.1',
+  'unifunc' => 'content_6440d7a848d663_44659293',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c0de9e7feaaaecacc061374d66f0b8cf8404f180' => 
     array (
       0 => 'C:\\xampp\\htdocs\\quanlycuahang\\views\\sellTab.tpl',
-      1 => 1681712506,
+      1 => 1681801420,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_643ce592d9d618_26758681 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6440d7a848d663_44659293 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="tab active-tab" id="sell-container">
     <div class="product-choose-container">
         <div class="product-choose-header">
@@ -64,7 +64,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             <div id="table">
                 <table id="table-order">
                     <tr>
-                        <th>Thức uống</th>
+                        <th>SẢN PHẨM</th>
                         <th>ĐG</th>
                         <th>SL</th>
                         <th></th>

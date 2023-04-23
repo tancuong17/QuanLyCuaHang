@@ -2,7 +2,7 @@
     require "../../model/product.php";
     $connect = new PDO('mysql:host=localhost;dbname=milktea', 'root', '');
     $products = array();
-    $stament = $connect->prepare("SELECT * FROM product LEFT JOIN price ON price.id_product = product.id");
+    $stament = $connect->prepare("SELECT product.id, product.name, product.image, price.price, price.start_date, price.end_date FROM product LEFT JOIN price ON price.id_product = product.id ORDER BY price.create_date DESC");
     $stament->execute();
     while ($row = $stament->fetch()) {
         if (date($row['start_date']) <= date("Y-m-d") && date($row['end_date']) >= date("Y-m-d")) {

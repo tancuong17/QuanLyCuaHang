@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-04-17 07:41:02
+/* Smarty version 4.3.1, created on 2023-04-20 08:11:52
   from 'C:\xampp\htdocs\quanlycuahang\views\billTab.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
-  'version' => '4.3.0',
-  'unifunc' => 'content_643cdbee7fd4b0_64710593',
+  'version' => '4.3.1',
+  'unifunc' => 'content_6440d7a87efdb6_04530623',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '049dab13674ffebd89aa41fb1cfa5bea58828ae8' => 
     array (
       0 => 'C:\\xampp\\htdocs\\quanlycuahang\\views\\billTab.tpl',
-      1 => 1681708036,
+      1 => 1681801395,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_643cdbee7fd4b0_64710593 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6440d7a87efdb6_04530623 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="tab" id="order-manager">
     <div id="order-manager-header">
         <p style="font-size: 1.2rem;">Danh sách hóa đơn</p>
@@ -37,11 +37,11 @@ function content_643cdbee7fd4b0_64710593 (Smarty_Internal_Template $_smarty_tpl)
         <div id="bill-table">
             <table>
                 <tr>
-                    <th>Mã hóa đơn</th>
-                    <th>Số lượng đồ uống</th>
-                    <th>Ngày mua</th>
-                    <th>Tổng tiền</th>
-                    <th>Người bán</th>
+                    <th>MÃ</th>
+                    <th>SỐ LƯỢNG SẢN PHẨM</th>
+                    <th>NGÀY MUA</th>
+                    <th>TỔNG TIỀN</th>
+                    <th>NGƯỜI BÁN</th>
                     <th></th>
                 </tr>
                 <?php
@@ -92,10 +92,10 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             <div id="table">
                 <table id="table-product-in-bill">
                     <tr>
-                        <th>Thức uống</th>
+                        <th>SẢN PHẨM</th>
                         <th>SL</th>
                         <th>ĐG</th>
-                        <th>T.Tiền</th>
+                        <th>T.TIỀN</th>
                     </tr>
                 </table>
             </div>
