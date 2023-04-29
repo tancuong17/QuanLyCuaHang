@@ -52,14 +52,11 @@
             <fieldset>
                 <legend>Sản phẩm: </legend>
                 <select id="idProduct">
-                    {foreach from=$products item=product}
-                        <option value={$product.id}>{$product.name}</option>
-                    {/foreach}
                 </select>
             </fieldset>
             <fieldset>
                 <legend>Giá: </legend>
-                <input type="number" min="0" id="price" />
+                <input type="text" min="0" id="price" class="number-separator"/>
             </fieldset>
             <fieldset>
                 <legend>Ngày bắt đầu: </legend>

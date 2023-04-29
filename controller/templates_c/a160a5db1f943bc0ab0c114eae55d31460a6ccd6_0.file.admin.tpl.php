@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.1, created on 2023-04-20 08:11:51
+/* Smarty version 4.3.1, created on 2023-04-29 19:04:30
   from 'C:\xampp\htdocs\quanlycuahang\views\admin.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.1',
-  'unifunc' => 'content_6440d7a7b92018_52033664',
+  'unifunc' => 'content_644d4e1e1850a5_62870667',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a160a5db1f943bc0ab0c114eae55d31460a6ccd6' => 
     array (
       0 => 'C:\\xampp\\htdocs\\quanlycuahang\\views\\admin.tpl',
-      1 => 1681955572,
+      1 => 1682787846,
       2 => 'file',
     ),
   ),
@@ -25,7 +25,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:./statisticalTab.tpl' => 1,
   ),
 ),false)) {
-function content_6440d7a7b92018_52033664 (Smarty_Internal_Template $_smarty_tpl) {
+function content_644d4e1e1850a5_62870667 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,20 +42,18 @@ function content_6440d7a7b92018_52033664 (Smarty_Internal_Template $_smarty_tpl)
             <img onclick="OpenMenu()" src="https://cdn-icons-png.flaticon.com/512/5036/5036960.png" alt="image" />
             <p>NTC MILKTEA</p>
         </div>
-        <span onclick="UserModal()">Xin chào, Nguyễn Tấn Cường</span>
+        <div>
+            <span onclick="UserModal()">Xin chào, Nguyễn Tấn Cường</span>
+            <p id="logout" style="font-size: 1rem; border: 1px solid rgb(155, 9, 9); background-color: rgb(155, 9, 9); color: white; padding: 0.2rem 0.3rem; border-radius: 0.3rem;" onclick="Logout()">Đăng xuất</p>
+        </div>
     </div>
     <div id="menu">
         <img onclick="CloseMenu()" src="https://static.thenounproject.com/png/128143-200.png" alt="image" />
-        <p class="active" onclick="OpenTab(event, 0)">BÁN HÀNG</p>
-        <p onclick="OpenTab(event, 1)">HÓA ĐƠN</p>
-        <p onclick="OpenTab(event, 2)">SẢN PHẨM</p>
-        <p onclick="OpenTab(event, 3)">BẢNG GIÁ</p>
-        <p onclick="OpenTab(event, 4)">THỐNG KÊ</p>
-    </div>
-    <div id="user-modal">
-        <p>Thông tin</p>
-        <p>Đổi mật khẩu</p>
-        <p onclick="Logout()">Đăng xuất</p>
+        <p class="active" onclick="OpenTab(0)">BÁN HÀNG</p>
+        <p onclick="OpenTab(1)">HÓA ĐƠN</p>
+        <p onclick="OpenTab(2)">SẢN PHẨM</p>
+        <p onclick="OpenTab(3)">BẢNG GIÁ</p>
+        <p onclick="OpenTab(4)">THỐNG KÊ</p>
     </div>
     <div id="tab-container">
         <?php $_smarty_tpl->_subTemplateRender("file:./sellTab.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
@@ -74,7 +72,10 @@ function content_6440d7a7b92018_52033664 (Smarty_Internal_Template $_smarty_tpl)
  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"><?php echo '</script'; ?>
 >
 <?php echo '<script'; ?>
- src="js/index"><?php echo '</script'; ?>
+ src="https://cdn.jsdelivr.net/gh/amiryxe/easy-number-separator/easy-number-separator.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="js/authentication"><?php echo '</script'; ?>
 >
 <?php echo '<script'; ?>
  src="js/admin"><?php echo '</script'; ?>

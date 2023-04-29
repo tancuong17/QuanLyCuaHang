@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.1, created on 2023-04-20 08:11:52
+/* Smarty version 4.3.1, created on 2023-04-27 10:37:40
   from 'C:\xampp\htdocs\quanlycuahang\views\priceTab.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.1',
-  'unifunc' => 'content_6440d7a8cd4f04_74586891',
+  'unifunc' => 'content_644a3454d15ce8_95468800',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e24d1eabee0b3e09e5fd5877dbd4f31e5a7c7cae' => 
     array (
       0 => 'C:\\xampp\\htdocs\\quanlycuahang\\views\\priceTab.tpl',
-      1 => 1681801332,
+      1 => 1682566220,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6440d7a8cd4f04_74586891 (Smarty_Internal_Template $_smarty_tpl) {
+function content_644a3454d15ce8_95468800 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="tab" id="price-manager">
     <div id="price-manager-header">
         <p style="font-size: 1.2rem;">Bảng giá</p>
@@ -90,23 +90,11 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             <fieldset>
                 <legend>Sản phẩm: </legend>
                 <select id="idProduct">
-                    <?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['products']->value, 'product');
-$_smarty_tpl->tpl_vars['product']->do_else = true;
-if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['product']->value) {
-$_smarty_tpl->tpl_vars['product']->do_else = false;
-?>
-                        <option value=<?php echo $_smarty_tpl->tpl_vars['product']->value['id'];?>
-><?php echo $_smarty_tpl->tpl_vars['product']->value['name'];?>
-</option>
-                    <?php
-}
-$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 </select>
             </fieldset>
             <fieldset>
                 <legend>Giá: </legend>
-                <input type="number" min="0" id="price" />
+                <input type="text" min="0" id="price" class="number-separator"/>
             </fieldset>
             <fieldset>
                 <legend>Ngày bắt đầu: </legend>

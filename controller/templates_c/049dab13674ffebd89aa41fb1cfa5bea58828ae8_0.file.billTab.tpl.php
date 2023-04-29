@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.1, created on 2023-04-20 08:11:52
+/* Smarty version 4.3.1, created on 2023-04-27 10:37:40
   from 'C:\xampp\htdocs\quanlycuahang\views\billTab.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.1',
-  'unifunc' => 'content_6440d7a87efdb6_04530623',
+  'unifunc' => 'content_644a3454a5e6d7_06497926',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '049dab13674ffebd89aa41fb1cfa5bea58828ae8' => 
     array (
       0 => 'C:\\xampp\\htdocs\\quanlycuahang\\views\\billTab.tpl',
-      1 => 1681801395,
+      1 => 1682562146,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6440d7a87efdb6_04530623 (Smarty_Internal_Template $_smarty_tpl) {
+function content_644a3454a5e6d7_06497926 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="tab" id="order-manager">
     <div id="order-manager-header">
         <p style="font-size: 1.2rem;">Danh sách hóa đơn</p>
@@ -35,7 +35,7 @@ function content_6440d7a87efdb6_04530623 (Smarty_Internal_Template $_smarty_tpl)
     </div>
     <div id="order-container">
         <div id="bill-table">
-            <table>
+            <table id="table-of-bill">
                 <tr>
                     <th>MÃ</th>
                     <th>SỐ LƯỢNG SẢN PHẨM</th>
@@ -44,32 +44,6 @@ function content_6440d7a87efdb6_04530623 (Smarty_Internal_Template $_smarty_tpl)
                     <th>NGƯỜI BÁN</th>
                     <th></th>
                 </tr>
-                <?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['bills']->value, 'bill');
-$_smarty_tpl->tpl_vars['bill']->do_else = true;
-if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['bill']->value) {
-$_smarty_tpl->tpl_vars['bill']->do_else = false;
-?>
-                    <tr>
-                        <td><?php echo $_smarty_tpl->tpl_vars['bill']->value['id'];?>
-</td>
-                        <td><?php echo $_smarty_tpl->tpl_vars['bill']->value['quantity'];?>
-</td>
-                        <td><?php echo $_smarty_tpl->tpl_vars['bill']->value['createDate'];?>
-</td>
-                        <td><?php echo $_smarty_tpl->tpl_vars['bill']->value['total'];?>
-</td>
-                        <td><?php echo $_smarty_tpl->tpl_vars['bill']->value['name'];?>
-</td>
-                        <td style="text-align: center;">
-                            <img onclick="OpenDetailOrderModal(event, <?php echo $_smarty_tpl->tpl_vars['bill']->value['id'];?>
-)"
-                                src="https://cdn-icons-png.flaticon.com/512/4305/4305363.png" alt="image" />
-                        </td>
-                    </tr>
-                <?php
-}
-$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             </table>
         </div>
     </div>

@@ -12,6 +12,10 @@ body {
     max-height: 100vh;
 }
 
+#logout:hover{
+    cursor: pointer;
+}
+
 #login-container {
     width: 100vw;
     height: 100vh;
@@ -102,29 +106,6 @@ body {
 
 .active {
     background-color: white;
-}
-
-#user-modal {
-    display: none;
-    justify-content: center;
-    flex-direction: column;
-    position: fixed;
-    top: 3rem;
-    right: 1rem;
-    width: 12%;
-    height: 18%;
-    background-color: white;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    z-index: 100;
-}
-
-#user-modal p {
-    padding: 0.5rem;
-}
-
-#user-modal p:hover {
-    background-color: whitesmoke;
-    cursor: pointer;
 }
 
 #tab-container {
@@ -665,10 +646,12 @@ th {
     border-radius: 0.3rem;
 }
 
-#table-price, #bill-table {
+#table-price, #bill-table, #table-statistical {
+    width: 100vw;
     height: 82vh;
     padding: 0.5rem;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 #table-price::-webkit-scrollbar, #bill-table::-webkit-scrollbar {

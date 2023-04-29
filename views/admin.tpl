@@ -14,20 +14,18 @@
             <img onclick="OpenMenu()" src="https://cdn-icons-png.flaticon.com/512/5036/5036960.png" alt="image" />
             <p>NTC MILKTEA</p>
         </div>
-        <span onclick="UserModal()">Xin chào, Nguyễn Tấn Cường</span>
+        <div>
+            <span onclick="UserModal()">Xin chào, Nguyễn Tấn Cường</span>
+            <p id="logout" style="font-size: 1rem; border: 1px solid rgb(155, 9, 9); background-color: rgb(155, 9, 9); color: white; padding: 0.2rem 0.3rem; border-radius: 0.3rem;" onclick="Logout()">Đăng xuất</p>
+        </div>
     </div>
     <div id="menu">
         <img onclick="CloseMenu()" src="https://static.thenounproject.com/png/128143-200.png" alt="image" />
-        <p class="active" onclick="OpenTab(event, 0)">BÁN HÀNG</p>
-        <p onclick="OpenTab(event, 1)">HÓA ĐƠN</p>
-        <p onclick="OpenTab(event, 2)">SẢN PHẨM</p>
-        <p onclick="OpenTab(event, 3)">BẢNG GIÁ</p>
-        <p onclick="OpenTab(event, 4)">THỐNG KÊ</p>
-    </div>
-    <div id="user-modal">
-        <p>Thông tin</p>
-        <p>Đổi mật khẩu</p>
-        <p onclick="Logout()">Đăng xuất</p>
+        <p class="active" onclick="OpenTab(0)">BÁN HÀNG</p>
+        <p onclick="OpenTab(1)">HÓA ĐƠN</p>
+        <p onclick="OpenTab(2)">SẢN PHẨM</p>
+        <p onclick="OpenTab(3)">BẢNG GIÁ</p>
+        <p onclick="OpenTab(4)">THỐNG KÊ</p>
     </div>
     <div id="tab-container">
         {include file="./sellTab.tpl"}
@@ -38,6 +36,7 @@
     </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script src="js/index"></script>
+<script src="https://cdn.jsdelivr.net/gh/amiryxe/easy-number-separator/easy-number-separator.js"></script>
+<script src="js/authentication"></script>
 <script src="js/admin"></script>
 </html>

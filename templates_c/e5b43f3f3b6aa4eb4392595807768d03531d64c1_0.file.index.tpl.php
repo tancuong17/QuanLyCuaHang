@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.1, created on 2023-04-22 03:21:17
+/* Smarty version 4.3.1, created on 2023-04-27 11:05:52
   from 'C:\xampp\htdocs\quanlycuahang\views\index.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.1',
-  'unifunc' => 'content_6443368d28da39_79225844',
+  'unifunc' => 'content_644a3af0a51364_79680743',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e5b43f3f3b6aa4eb4392595807768d03531d64c1' => 
     array (
       0 => 'C:\\xampp\\htdocs\\quanlycuahang\\views\\index.tpl',
-      1 => 1681955561,
+      1 => 1682580187,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6443368d28da39_79225844 (Smarty_Internal_Template $_smarty_tpl) {
+function content_644a3af0a51364_79680743 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,8 +35,8 @@ function content_6443368d28da39_79225844 (Smarty_Internal_Template $_smarty_tpl)
     <div id="login-container">
         <div id="login">
             <span>NTC MILKTEA</span>
-            <input placeholder="Số điện thoại..." id="phonenumber"/>
-            <input type="password" placeholder="Mật khẩu..." id="password"/>
+            <input placeholder="Số điện thoại..." id="phonenumber" value="0382572663"/>
+            <input type="password" placeholder="Mật khẩu..." id="password" value="0123456789"/>
             <button onclick="Login()">ĐĂNG NHẬP</button>
         </div>
     </div>
@@ -45,10 +45,10 @@ function content_6443368d28da39_79225844 (Smarty_Internal_Template $_smarty_tpl)
  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"><?php echo '</script'; ?>
 >
 <?php echo '<script'; ?>
- src="js/index"><?php echo '</script'; ?>
+ src="js/authentication"><?php echo '</script'; ?>
 >
 <?php echo '<script'; ?>
- src="js/admin"><?php echo '</script'; ?>
+ src="js/index"><?php echo '</script'; ?>
 >
 </html><?php }
 }

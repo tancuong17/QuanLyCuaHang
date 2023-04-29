@@ -3,13 +3,21 @@ let idPrice = 0;
 let idProductChoose = 0;
 let listIdProductInOrder = new Array();
 let priceChoose = 0;
+let dataExcel = new Array();
+let checkExcel = 0;
 
+if(localStorage.getItem("tab") == null)
+    localStorage.setItem("tab", 0);
+    
+OpenTab(Number(localStorage.getItem("tab")));
+   
 function Logout() {
     $.ajax({
         type: "get",
         url: "http://localhost/quanlycuahang/api/logout",
         dataType: "text",
         success: function (response) {
+            localStorage.setItem("tab", 0);
             window.location.href = "http://localhost/quanlycuahang/";
         }
     });
@@ -31,7 +39,8 @@ function UserModal() {
         check = 0;
     }
 }
-function OpenTab(e, index) {
+function OpenTab(index) {
+    localStorage.setItem("tab", index);
     let menuItem = document.querySelectorAll("#menu p");
     let tab = document.getElementsByClassName("tab");
     for (let j = 0; j < menuItem.length; j++) {
@@ -43,7 +52,38 @@ function OpenTab(e, index) {
         else
             tab[i].style.display = "none";
     }
-    e.target.style.background = "white";
+    if(index == 0){
+        RefreshProductChoose();
+    }
+    else if(index == 1){
+        RefreshBill();
+    }
+    else if(index == 2){
+        RefreshProduct();
+    }
+    else if (index == 3) {
+        easyNumberSeparator({
+            selector: '.number-separator',
+            separator: ','
+        })
+        let children = document.getElementById("idProduct").children;
+        for (let j = 0; j < children.length; j++) {
+            children[j].remove();
+        }
+        $.ajax({
+            type: "get",
+            url: "http://localhost/quanlycuahang/api/getProducts",
+            dataType: "json",
+            success: function (response) {
+                for (let i = 0; i < response.length; i++) {
+                    $("#idProduct").append(`
+                        <option value=`+ response[i].id +`>`+ response[i].name +`</option>
+                    `);
+                }
+            }
+        });
+    }
+    menuItem[index].style.background = "white";
     CloseMenu();
 }
 
@@ -150,15 +190,15 @@ function getDataExcel() {
             success: function (result) {
                 let childrens = document.querySelectorAll("#product-excel-container div");
                 for (let i = 0; i < childrens.length; i++) {
-                   childrens[i].remove();
+                    childrens[i].remove();
                 }
                 for (let i = 0; i < result.length; i++) {
                     $("#product-excel-container").append(`
                         <div style="height: max-content;">
-                            <label for="image-product-`+ i +`">
-                                <img id="image-excel-`+ i +`" style="width: 100%; height: 8rem; object-fit: cover; border-radius: 0.3rem;" src="https://static.thenounproject.com/png/3322766-200.png" alt="image" />
+                            <label for="image-product-`+ i + `">
+                                <img id="image-excel-`+ i + `" style="width: 100%; height: 8rem; object-fit: cover; border-radius: 0.3rem;" src="https://static.thenounproject.com/png/3322766-200.png" alt="image" />
                             </label>
-                            <input class="image-product-excel" onchange="UploadImage('image-excel-`+ i + `', 'image-product-`+ i +`')" id="image-product-`+ i +`" type="file" style="width: 0;  position: absolute; height: 0;"/>
+                            <input class="image-product-excel" onchange="UploadImage('image-excel-`+ i + `', 'image-product-` + i + `')" id="image-product-` + i + `" type="file" style="width: 0;  position: absolute; height: 0;"/>
                             <p class="name-product-excel">` + result[i][0] + `</p>
                         </div>
                 `);
@@ -173,7 +213,7 @@ function AddProductExcel() {
     for (let i = 0; i < nameList.length; i++) {
         let form_data = new FormData();
         form_data.append("name", nameList[i].innerHTML);
-        form_data.append("file", $('#image-product-' + i ).prop('files')[0]);
+        form_data.append("file", $('#image-product-' + i).prop('files')[0]);
         $.ajax({
             url: "http://localhost/quanlycuahang/api/addProduct",
             type: "post",
@@ -182,7 +222,14 @@ function AddProductExcel() {
             dataType: "json",
             data: form_data,
             success: function (result) {
-               console.log(result);
+                $("#product-container").prepend(`
+                <div class="product" onclick="OpenDetailProductModal(event)">
+                    <img src="http://localhost/quanlycuahang/`+ result.image + `" alt="image" />
+                    <p>Mã: `+ result.id + `</p>
+                    <p>`+ result.name + `</p>
+                    <p>Chưa có giá</p>
+                </div>
+                `);
             }
         });
     }
@@ -217,7 +264,7 @@ function AddProduct() {
             success: function (result) {
                 $("#product-container").prepend(`
                 <div class="product" onclick="OpenDetailProductModal(event)">
-                    <img src="http://localhost/quanlycuahang/`+ result.image + `" alt="image" />
+                    <img src="../`+ result.image + `" alt="image" />
                     <p>Mã: `+ result.id + `</p>
                     <p>`+ result.name + `</p>
                     <p>Chưa có giá</p>
@@ -254,7 +301,7 @@ function UpdateProduct() {
                 let product = document.getElementsByClassName("product");
                 for (let i = 0; i < product.length; i++) {
                     if (product[i].children[1].innerHTML == "Mã:" + result.id) {
-                        product[i].children[0].src = "http://localhost/quanlycuahang/" + result.image;
+                        product[i].children[0].src = "../" + result.image;
                         product[i].children[2].innerHTML = result.name;
                     }
                 }
@@ -288,7 +335,7 @@ function AddPrice() {
     else {
         let form_data = new FormData();
         form_data.append("idProduct", idProduct);
-        form_data.append("price", price);
+        form_data.append("price", Number(price.replace(",", "")));
         form_data.append("startDate", startDate);
         form_data.append("endDate", endDate);
         $.ajax({
@@ -299,7 +346,6 @@ function AddPrice() {
             dataType: "json",
             data: form_data,
             success: function (result) {
-                console.log(result);
                 if (result.result == 0)
                     alert("Thêm bảng giá không thành công vì bảng giá này đã tồn tại!");
                 else {
@@ -367,7 +413,6 @@ function UpdatePrice() {
             dataType: "text",
             data: { "id": idPrice, "idProduct": idProductChoose, "startDate": startDate, "endDate": endDate },
             success: function (result) {
-                console.log(result);
                 if (result == "1") {
                     let tr = document.querySelectorAll("#prices tr");
                     alert("Cập nhật thành công!");
@@ -413,7 +458,6 @@ function AddProductToOrder(e, id) {
     `);
         }
         ChangeQuantity();
-        console.log(listIdProductInOrder);
     }
 }
 
@@ -422,7 +466,6 @@ function RemoveProductFromOrder(e, idRemove) {
     $(e.target.parentElement.parentElement).remove();
     let quantity = $("#quantity-in-order").text().slice(9);
     $("#quantity-in-order").text("Số lượng: " + (Number(quantity) - e.target.parentElement.parentElement.children[2].children[0].value));
-    console.log(listIdProductInOrder);
 }
 
 function ChangeQuantity() {
@@ -497,56 +540,38 @@ function Pay() {
 }
 
 function SearchProductChoose() {
-    document.getElementsByClassName("product-choose-body")[0].style.gridTemplateColumns = "repeat(5, 1fr)";
     let keyword = $("#keyword").val();
     let products = document.querySelectorAll("#containerChoose .product");
     if (keyword == "")
         alert("Bạn chưa nhập từ khóa!")
     else {
+        document.getElementById("load-product").style.display = "flex";
+        document.getElementById("no-result-product").style.display = "none";
         for (let i = 0; i < products.length; i++) {
             products[i].remove();
         }
-        if ($("#false"))
-            $("#false").remove();
         $.ajax({
             url: "http://localhost/quanlycuahang/api/searchProduct",
             type: "post",
             dataType: "json",
             data: { "keyword": keyword },
             success: function (result) {
-                if (result.length > 1) {
+                document.getElementById("load-product").style.display = "none";
+                if (result.length != 0) {
                     for (let i = 0; i < result.length; i++) {
-                        if (result[i].price != null) {
+                        if (result[i].price != "Chưa có giá") {
                             $("#containerChoose").append(`
                             <div class="product" onclick="AddProductToOrder(event, `+ result[i].id + `)">
                                 <img src="`+ result[i].image + `" alt="image" />
                                 <p>`+ result[i].name + `</p>
-                                <p>`+ result[i].price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + `đ</p>
+                                <p>`+ result[i].price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + `</p>
                             </div>
                         `);
                         }
                     }
                 }
-                else if (result.length == 1) {
-                    if (result[0].price == "Chưa có giá") {
-                        document.getElementsByClassName("product-choose-body")[0].style.gridTemplateColumns = "repeat(1, 1fr)";
-                        $("#containerChoose").append(`
-                        <p id="false">Không tìm thấy sản phẩm!</p>`);
-                    }
-                    else {
-                        $("#containerChoose").append(`
-                        <div class="product" onclick="AddProductToOrder(event, `+ result[0].id + `)">
-                            <img src="`+ result[0].image + `" alt="image" />
-                            <p>`+ result[0].name + `</p>
-                            <p>`+ result[0].price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + `đ</p>
-                        </div>`);
-                    }
-                }
                 else {
-                    document.getElementsByClassName("product-choose-body")[0].style.gridTemplateColumns = "repeat(1, 1fr)";
-                    $("#containerChoose").append(`
-                    <p id="false">Không tìm thấy sản phẩm!</p>
-                `);
+                    document.getElementById("no-result-product").style.display = "flex";
                 }
             }
         });
@@ -555,6 +580,7 @@ function SearchProductChoose() {
 
 function RefreshProductChoose() {
     $("#keyword").val("");
+    document.getElementById("no-result-product").style.display = "none";
     document.getElementsByClassName("product-choose-body")[0].style.gridTemplateColumns = "repeat(5, 1fr)";
     let products = document.querySelectorAll("#containerChoose .product");
     for (let i = 0; i < products.length; i++) {
@@ -651,7 +677,6 @@ function SearchProduct() {
             dataType: "json",
             data: { "keyword": keyword },
             success: function (result) {
-                console.log(result);
                 if (result.length != 0) {
                     let products = document.querySelectorAll("#product-container .product");
                     for (let i = 0; i < products.length; i++) {
@@ -763,4 +788,53 @@ function RefreshPrices() {
             }
         }
     });
+}
+
+function Statistical() {
+    let startDate = $("#startDateSearch").val();
+    let endDate = $("#endDateSearch").val();
+    if (startDate == "")
+        alert("Bạn chưa chọn ngày bắt đầu!");
+    else if (endDate == "")
+        alert("Bạn chưa chọn ngày kết thúc!");
+    else if (new Date(startDate).getTime() > new Date(endDate).getTime())
+        alert("Ngày bắt đầu không được lớn hơn ngày kết thúc!");
+    else {
+        document.getElementById("no-result").style.display = "none";
+        document.getElementById("note").style.display = "none";
+        document.getElementById("load").style.display = "flex";
+        let tr = document.querySelectorAll("#statistical tr");
+        for (let j = 1; j < tr.length; j++) {
+            tr[j].remove();
+        }
+        $.ajax({
+            type: "post",
+            url: "http://localhost/quanlycuahang/api/getStatistical",
+            data: { startDate: startDate, endDate: endDate },
+            dataType: "json",
+            success: function (response) {
+                $("#startDateStatistical").val(startDate);
+                $("#endDateStatistical").val(endDate);
+                checkExcel = 1;
+                dataExcel = response;
+                document.getElementById("load").style.display = "none";
+                if (response.length == 0)
+                    document.getElementById("no-result").style.display = "flex";
+                else {
+                    for (let i = 0; i < response.length; i++) {
+                        $("#statistical").append(`
+                        <tr>
+                            <td>`+ Number(i + 1) + `</td>
+                            <td>`+ response[i].id + `</td>
+                            <td>`+ response[i].name + `</td>
+                            <td>`+ response[i].quantity + `</td>
+                            <td>`+ response[i].price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + `đ</td>
+                            <td>`+ response[i].total.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + `đ</td>
+                        </tr>
+                    `);
+                    }
+                }
+            }
+        });
+    }
 }

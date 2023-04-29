@@ -12,7 +12,7 @@
     </div>
     <div id="order-container">
         <div id="bill-table">
-            <table>
+            <table id="table-of-bill">
                 <tr>
                     <th>MÃ</th>
                     <th>SỐ LƯỢNG SẢN PHẨM</th>
@@ -21,19 +21,6 @@
                     <th>NGƯỜI BÁN</th>
                     <th></th>
                 </tr>
-                {foreach from=$bills item=bill}
-                    <tr>
-                        <td>{$bill.id}</td>
-                        <td>{$bill.quantity}</td>
-                        <td>{$bill.createDate}</td>
-                        <td>{$bill.total}</td>
-                        <td>{$bill.name}</td>
-                        <td style="text-align: center;">
-                            <img onclick="OpenDetailOrderModal(event, {$bill.id})"
-                                src="https://cdn-icons-png.flaticon.com/512/4305/4305363.png" alt="image" />
-                        </td>
-                    </tr>
-                {/foreach}
             </table>
         </div>
     </div>
