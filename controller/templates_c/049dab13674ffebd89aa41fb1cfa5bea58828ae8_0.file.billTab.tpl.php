@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.1, created on 2023-04-27 10:37:40
+/* Smarty version 4.3.1, created on 2023-05-18 10:23:55
   from 'C:\xampp\htdocs\quanlycuahang\views\billTab.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.1',
-  'unifunc' => 'content_644a3454a5e6d7_06497926',
+  'unifunc' => 'content_6465e09b85bf87_91479543',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '049dab13674ffebd89aa41fb1cfa5bea58828ae8' => 
     array (
       0 => 'C:\\xampp\\htdocs\\quanlycuahang\\views\\billTab.tpl',
-      1 => 1682562146,
+      1 => 1684313997,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_644a3454a5e6d7_06497926 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6465e09b85bf87_91479543 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="tab" id="order-manager">
     <div id="order-manager-header">
         <p style="font-size: 1.2rem;">Danh sách hóa đơn</p>
@@ -40,7 +40,6 @@ function content_644a3454a5e6d7_06497926 (Smarty_Internal_Template $_smarty_tpl)
                     <th>MÃ</th>
                     <th>SỐ LƯỢNG SẢN PHẨM</th>
                     <th>NGÀY MUA</th>
-                    <th>TỔNG TIỀN</th>
                     <th>NGƯỜI BÁN</th>
                     <th></th>
                 </tr>

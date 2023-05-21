@@ -12,9 +12,10 @@
     <div id="login-container">
         <div id="login">
             <span>NTC MILKTEA</span>
-            <input placeholder="Số điện thoại..." id="phonenumber" value="0382572663"/>
-            <input type="password" placeholder="Mật khẩu..." id="password" value="0123456789"/>
+            <input placeholder="Số điện thoại..." id="phonenumber"/>
+            <input type="password" placeholder="Mật khẩu..." id="password"/>
             <button onclick="Login()">ĐĂNG NHẬP</button>
+            <p>TK: 0382572663 <br/> MK: 0123456789</p>
         </div>
     </div>
 </body>

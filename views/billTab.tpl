@@ -17,7 +17,6 @@
                     <th>MÃ</th>
                     <th>SỐ LƯỢNG SẢN PHẨM</th>
                     <th>NGÀY MUA</th>
-                    <th>TỔNG TIỀN</th>
                     <th>NGƯỜI BÁN</th>
                     <th></th>
                 </tr>

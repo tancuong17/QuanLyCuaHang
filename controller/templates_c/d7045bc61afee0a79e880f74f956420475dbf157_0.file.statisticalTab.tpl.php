@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.1, created on 2023-04-27 10:37:41
+/* Smarty version 4.3.1, created on 2023-05-18 10:23:55
   from 'C:\xampp\htdocs\quanlycuahang\views\statisticalTab.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.1',
-  'unifunc' => 'content_644a3455078f61_66284366',
+  'unifunc' => 'content_6465e09bdc60f7_15302794',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd7045bc61afee0a79e880f74f956420475dbf157' => 
     array (
       0 => 'C:\\xampp\\htdocs\\quanlycuahang\\views\\statisticalTab.tpl',
-      1 => 1682526363,
+      1 => 1684375326,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_644a3455078f61_66284366 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6465e09bdc60f7_15302794 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="tab">
    <div id="price-manager-header">
       <p style="font-size: 1.2rem;">Thống kê</p>
@@ -52,7 +52,7 @@ function content_644a3455078f61_66284366 (Smarty_Internal_Template $_smarty_tpl)
          </tr>
          <div id="note" style="width: 100%; height: 80vh; position: absolute; gap: 0.5rem; display: flex; justify-content: center; align-items: center; flex-direction: column;">
             <img style="width: 10rem; height: 10rem; object-fit: cover;border-radius: 50%;"
-               src="https://thumbs.gfycat.com/HarshQuerulousFinnishspitz-size_restricted.gif" />
+               src="https://cdn.dribbble.com/users/4874/screenshots/1792443/timely_dribbble.gif" />
             <p>Hãy chọn ngày để thống kê!</p>
          </div>
          <div id="load" style="width: 100%; height: 80vh; position: absolute; gap: 0.5rem; display: none; justify-content: center; align-items: center; flex-direction: column;">

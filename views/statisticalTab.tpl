@@ -29,7 +29,7 @@
          </tr>
          <div id="note" style="width: 100%; height: 80vh; position: absolute; gap: 0.5rem; display: flex; justify-content: center; align-items: center; flex-direction: column;">
             <img style="width: 10rem; height: 10rem; object-fit: cover;border-radius: 50%;"
-               src="https://thumbs.gfycat.com/HarshQuerulousFinnishspitz-size_restricted.gif" />
+               src="https://cdn.dribbble.com/users/4874/screenshots/1792443/timely_dribbble.gif" />
             <p>Hãy chọn ngày để thống kê!</p>
          </div>
          <div id="load" style="width: 100%; height: 80vh; position: absolute; gap: 0.5rem; display: none; justify-content: center; align-items: center; flex-direction: column;">

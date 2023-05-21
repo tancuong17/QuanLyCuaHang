@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 4.3.1, created on 2023-04-27 10:37:40
+/* Smarty version 4.3.1, created on 2023-05-18 10:23:55
   from 'C:\xampp\htdocs\quanlycuahang\views\sellTab.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.1',
-  'unifunc' => 'content_644a3454810f96_48682812',
+  'unifunc' => 'content_6465e09b396fb8_54127098',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_644a3454810f96_48682812 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6465e09b396fb8_54127098 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="tab active-tab" id="sell-container">
     <div class="product-choose-container">
         <div class="product-choose-header">

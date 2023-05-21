@@ -2,16 +2,11 @@
     require "../../model/product.php";
     $connect = new PDO('mysql:host=localhost;dbname=milktea', 'root', '');
     $products = array();
-    $stament = $connect->prepare("SELECT product.id, product.name, product.image, price.price, price.start_date, price.end_date FROM product LEFT JOIN price ON price.id_product = product.id ORDER BY price.create_date DESC");
+    $stament = $connect->prepare("SELECT product.id, product.name, product.image, product.price FROM product");
     $stament->execute();
     while ($row = $stament->fetch()) {
-        if (date($row['start_date']) <= date("Y-m-d") && date($row['end_date']) >= date("Y-m-d")) {
-            $price = number_format($row['price'], 0, '.', ',');
-            array_push($products, array("id" => $row['id'], "image" => $row['image'], "name" => $row['name'], "price" => $price . "đ"));
-        }
-        else if($row['start_date'] == null){
-            array_push($products, array("id" => $row['id'], "image" => $row['image'], "name" => $row['name'], "price" => "Chưa có giá"));
-        }
+        $price = number_format($row['price'], 0, '.', ',');
+        array_push($products, array("id" => $row['id'], "image" => $row['image'], "name" => $row['name'], "price" => $price . "đ"));
     }
     echo json_encode($products, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 ?>

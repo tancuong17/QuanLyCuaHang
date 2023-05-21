@@ -7,9 +7,11 @@ function Login() {
             type: "post",
             url: "http://localhost/quanlycuahang/api/checkAccount",
             data: { phonenumber: phonenumber, password: password },
-            dataType: "text",
+            dataType: "json",
             success: function (response) {
-                if (response == 0)
+                console.log(response);
+                localStorage.setItem("user", JSON.stringify({"phonenumber": response.phonenumber, "name": response.name, role: response.role}));
+                if (response.check == 0)
                     alert("Tài khoản hoặc mật khẩu không chính xác!");
                 else
                     window.location.href = "http://localhost/quanlycuahang/admin";

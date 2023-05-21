@@ -6,11 +6,21 @@ let priceChoose = 0;
 let dataExcel = new Array();
 let checkExcel = 0;
 
-if(localStorage.getItem("tab") == null)
+if (JSON.parse(localStorage.getItem("user")).role == "0") {
+    document.getElementById("export-excel").style.display = "block";
+    document.getElementById("name").innerHTML = "Xin chào, Quản lý " + JSON.parse(localStorage.getItem("user")).name;
+}
+else {
+    document.getElementById("export-excel").style.display = "none";
+    document.getElementById("name").innerHTML = "Xin chào, Nhân viên  " + JSON.parse(localStorage.getItem("user")).name;
+}
+
+if (localStorage.getItem("tab") == null)
     localStorage.setItem("tab", 0);
-    
+
 OpenTab(Number(localStorage.getItem("tab")));
-   
+
+
 function Logout() {
     $.ajax({
         type: "get",
@@ -52,36 +62,28 @@ function OpenTab(index) {
         else
             tab[i].style.display = "none";
     }
-    if(index == 0){
+    if (index == 0) {
         RefreshProductChoose();
     }
-    else if(index == 1){
+    else if (index == 1) {
         RefreshBill();
     }
-    else if(index == 2){
+    else if (index == 2) {
         RefreshProduct();
-    }
-    else if (index == 3) {
         easyNumberSeparator({
             selector: '.number-separator',
             separator: ','
-        })
-        let children = document.getElementById("idProduct").children;
-        for (let j = 0; j < children.length; j++) {
-            children[j].remove();
-        }
-        $.ajax({
-            type: "get",
-            url: "http://localhost/quanlycuahang/api/getProducts",
-            dataType: "json",
-            success: function (response) {
-                for (let i = 0; i < response.length; i++) {
-                    $("#idProduct").append(`
-                        <option value=`+ response[i].id +`>`+ response[i].name +`</option>
-                    `);
-                }
-            }
         });
+        if (JSON.parse(localStorage.getItem("user")).role == "0") {
+            document.getElementById("add-product-btn").style.display = "block";
+            document.getElementById("add-product-excel-btn").style.display = "block";
+            document.getElementById("update-product-btn").style.display = "block";
+        }
+        else {
+            document.getElementById("add-product-btn").style.display = "none";
+            document.getElementById("add-product-excel-btn").style.display = "none";
+            document.getElementById("update-product-btn").style.display = "none";
+        }
     }
     menuItem[index].style.background = "white";
     CloseMenu();
@@ -105,6 +107,7 @@ function CloseAddProductExcelModal() {
 
 
 function OpenDetailOrderModal(e, idBill) {
+    let totalMoney = 0;
     let tr = document.querySelectorAll("#table-product-in-bill tr");
     for (let j = 1; j < tr.length; j++) {
         tr[j].remove();
@@ -112,9 +115,8 @@ function OpenDetailOrderModal(e, idBill) {
     document.getElementById("detail-order-container").style.display = "grid";
     document.getElementById("idBill").innerHTML = "Mã hóa đơn: " + e.target.parentElement.parentElement.children[0].innerHTML;
     document.getElementById("quantityInOrder").innerHTML = "Số lượng đồ uống: " + e.target.parentElement.parentElement.children[1].innerHTML;
-    document.getElementById("totalPrice").innerHTML = "Tổng tiền: " + e.target.parentElement.parentElement.children[3].innerHTML;
     document.getElementById("createDate").innerHTML = "Ngày mua: " + e.target.parentElement.parentElement.children[2].innerHTML;
-    document.getElementById("manSell").innerHTML = "Người bán: " + e.target.parentElement.parentElement.children[4].innerHTML;
+    document.getElementById("manSell").innerHTML = "Người bán: " + e.target.parentElement.parentElement.children[3].innerHTML;
     $.ajax({
         url: "http://localhost/quanlycuahang/api/getBill",
         type: "post",
@@ -122,6 +124,8 @@ function OpenDetailOrderModal(e, idBill) {
         data: { "id": idBill },
         success: function (result) {
             for (let i = 0; i < result.length; i++) {
+                console.log(result[i].price);
+                totalMoney += Number(result[i].price);
                 $("#table-product-in-bill").append(`
                 <tr>
                     <td>`+ result[i].name + `</td>
@@ -130,6 +134,7 @@ function OpenDetailOrderModal(e, idBill) {
                     <td>`+ (result[i].price * result[i].quantity).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + "đ" + `</td>
                 </tr>
             `);
+            document.getElementById("totalPrice").innerHTML = "Tổng tiền: " + totalMoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + "đ";
             }
         }
     });
@@ -143,7 +148,25 @@ function OpenDetailProductModal(e) {
     document.getElementById("image-update").src = e.target.children[0].src;
     document.getElementById("id-update").value = e.target.children[1].innerHTML.slice(3);
     document.getElementById("name-update").value = e.target.children[2].innerHTML;
+    document.getElementById("price-update").value = e.target.children[3].innerHTML.split('đ').join('');
     document.getElementById("update-product-container").style.display = "grid";
+    document.getElementById("history-price-container").replaceChildren();
+    $.ajax({
+        url: "http://localhost/quanlycuahang/api/getHistoryPrice",
+        type: "post",
+        dataType: "json",
+        data: { "idProduct": e.target.children[1].innerHTML.slice(3) },
+        success: function (result) {
+            for (let i = 0; i < result.length; i++) {
+                $("#history-price-container").append(`
+                <div class="history-price">
+                    <p>`+ result[i].price +`</p>
+                    <p>`+ new Date(result[i].startDate).toLocaleString() + " - " + new Date(result[i].endDate).toLocaleString() +`</p>
+                </div>
+            `);
+            }
+        }
+    });
 }
 
 function CloseDetailProductModal() {
@@ -194,15 +217,20 @@ function getDataExcel() {
                 }
                 for (let i = 0; i < result.length; i++) {
                     $("#product-excel-container").append(`
-                        <div style="height: max-content;">
+                        <div style="height: max-content; border: 1px solid lightGray; padding: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem; border-radius: 0.3rem">
                             <label for="image-product-`+ i + `">
                                 <img id="image-excel-`+ i + `" style="width: 100%; height: 8rem; object-fit: cover; border-radius: 0.3rem;" src="https://static.thenounproject.com/png/3322766-200.png" alt="image" />
                             </label>
                             <input class="image-product-excel" onchange="UploadImage('image-excel-`+ i + `', 'image-product-` + i + `')" id="image-product-` + i + `" type="file" style="width: 0;  position: absolute; height: 0;"/>
                             <p class="name-product-excel">` + result[i][0] + `</p>
+                            <input type="text" min="0" class="price-product-excel number-separator" placeholder="Giá sản phẩm"/>
                         </div>
                 `);
                 }
+                easyNumberSeparator({
+                    selector: '.number-separator',
+                    separator: ','
+                });
             }
         });
     }
@@ -210,9 +238,11 @@ function getDataExcel() {
 
 function AddProductExcel() {
     let nameList = document.querySelectorAll(".name-product-excel");
+    let priceList = document.querySelectorAll(".price-product-excel");
     for (let i = 0; i < nameList.length; i++) {
         let form_data = new FormData();
         form_data.append("name", nameList[i].innerHTML);
+        form_data.append("price", Number(priceList[i].value.split(',').join('')));
         form_data.append("file", $('#image-product-' + i).prop('files')[0]);
         $.ajax({
             url: "http://localhost/quanlycuahang/api/addProduct",
@@ -222,12 +252,16 @@ function AddProductExcel() {
             dataType: "json",
             data: form_data,
             success: function (result) {
+                easyNumberSeparator({
+                    selector: '.number-separator-excel',
+                    separator: ','
+                })
                 $("#product-container").prepend(`
                 <div class="product" onclick="OpenDetailProductModal(event)">
                     <img src="http://localhost/quanlycuahang/`+ result.image + `" alt="image" />
                     <p>Mã: `+ result.id + `</p>
                     <p>`+ result.name + `</p>
-                    <p>Chưa có giá</p>
+                    <p>`+ result.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + `đ</p>
                 </div>
                 `);
             }
@@ -238,17 +272,25 @@ function AddProductExcel() {
 }
 
 function AddProduct() {
-    let name = document.getElementById("name").value;
+    let name = document.getElementById("name-product").value;
+    let price = document.getElementById("price-product").value;
     let form_data = new FormData();
     const validImageTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/jpg'];
     const fileType = $('#file').prop('files')[0]['type'];
     form_data.append("name", name);
+    form_data.append("price", Number(price.split(',').join('')));
     form_data.append("file", $('#file').prop('files')[0]);
-    if (name == "") {
+    if ($('#file').val() == "") {
+        alert("Bạn chưa chọn ảnh sản phẩm!");
+    }
+    else if (name == "") {
         alert("Bạn chưa nhập tên sản phẩm!");
     }
-    else if ($('#file').val() == "") {
-        alert("Bạn chưa chọn ảnh sản phẩm!");
+    else if ($('#price').val() == "") {
+        alert("Bạn chưa nhập số tiền!");
+    }
+    else if ($('#price').val() < 0) {
+        alert("Số tiền không được nhỏ hơn 0");
     }
     else if (!validImageTypes.includes(fileType)) {
         alert("File của bạn không phải là hình ảnh! File ảnh phải có đuôi gif, jpeg, png, jpg");
@@ -262,12 +304,13 @@ function AddProduct() {
             dataType: "json",
             data: form_data,
             success: function (result) {
+                console.log(result);
                 $("#product-container").prepend(`
                 <div class="product" onclick="OpenDetailProductModal(event)">
-                    <img src="../`+ result.image + `" alt="image" />
+                    <img src="http://localhost/quanlycuahang/`+ result.image + `" alt="image" />
                     <p>Mã: `+ result.id + `</p>
                     <p>`+ result.name + `</p>
-                    <p>Chưa có giá</p>
+                    <p>`+ result.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") +`đ</p>
                 </div>
             `);
                 alert("Thêm sản phẩm thành công!");
@@ -280,9 +323,11 @@ function AddProduct() {
 function UpdateProduct() {
     let id = document.getElementById("id-update").value;
     let name = document.getElementById("name-update").value;
+    let price = document.getElementById("price-update").value;
     let form_data = new FormData();
     form_data.append("id", id);
     form_data.append("name", name);
+    form_data.append("price", Number(price.split(',').join('')));
     form_data.append("file", $('#file-update').prop('files')[0]);
     if (name == "") {
         alert("Bạn chưa nhập tên sản phẩm!");
@@ -293,134 +338,11 @@ function UpdateProduct() {
             type: "post",
             contentType: false,
             processData: false,
-            dataType: "json",
-            data: form_data,
-            success: function (result) {
-                console.log(result);
-                CloseDetailProductModal();
-                let product = document.getElementsByClassName("product");
-                for (let i = 0; i < product.length; i++) {
-                    if (product[i].children[1].innerHTML == "Mã:" + result.id) {
-                        product[i].children[0].src = "../" + result.image;
-                        product[i].children[2].innerHTML = result.name;
-                    }
-                }
-            }
-        });
-    }
-}
-
-function OpenAddPriceModal() {
-    document.getElementById("add-price-container").style.display = "grid";
-    $("#startDate").attr("min", new Date().toISOString().slice(0, 10));
-    $("#endDate").attr("min", new Date().toISOString().slice(0, 10));
-    $("#startDate").val(new Date().toISOString().slice(0, 10));
-    $("#endDate").val(new Date().toISOString().slice(0, 10));
-}
-
-function CloseAddPriceModal() {
-    document.getElementById("add-price-container").style.display = "none";
-}
-
-function AddPrice() {
-    let idProduct = $("#idProduct").val();
-    let price = $("#price").val();
-    let startDate = $("#startDate").val();
-    let endDate = $("#endDate").val();
-    let tr = document.querySelectorAll("#prices tr");
-    if (price <= 0)
-        alert("Giá sản phẩm phải lớn 0");
-    else if (new Date(startDate).getTime() > new Date(endDate).getTime())
-        alert("Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc!");
-    else {
-        let form_data = new FormData();
-        form_data.append("idProduct", idProduct);
-        form_data.append("price", Number(price.replace(",", "")));
-        form_data.append("startDate", startDate);
-        form_data.append("endDate", endDate);
-        $.ajax({
-            url: "http://localhost/quanlycuahang/api/addPrice",
-            type: "post",
-            contentType: false,
-            processData: false,
-            dataType: "json",
-            data: form_data,
-            success: function (result) {
-                if (result.result == 0)
-                    alert("Thêm bảng giá không thành công vì bảng giá này đã tồn tại!");
-                else {
-                    alert("Thêm bảng giá thành công!");
-                    $("#prices").append(`
-                        <tr>
-                            <td>`+ result.id + `</td>
-                            <td>`+ result.nameProduct + `</td>
-                            <td>`+ result.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + "đ" + `</td>
-                            <td>`+ result.startDate + `</td>
-                            <td>`+ result.endDate + `</td>
-                            <td style="text-align: center;">
-                                <img onclick="OpenUpdatePriceModal(event, `+ result.id + `,` + tr.length + 1 + `,` + result.idProduct + `)" src="https://cdn-icons-png.flaticon.com/512/875/875100.png" alt="image" />
-                            </td>
-                        </tr>
-                    `);
-                    CloseAddPriceModal();
-                }
-            }
-        });
-    }
-}
-
-function OpenUpdatePriceModal(e, id, index, idProduct) {
-    idProductChoose = idProduct;
-    priceChoose = index;
-    idPrice = id;
-    document.getElementById("nameProductPriceUpdate").innerHTML = e.target.parentElement.parentElement.children[1].innerHTML;
-    document.getElementById("priceUpdate").innerHTML = e.target.parentElement.parentElement.children[2].innerHTML;
-    if (new Date(e.target.parentElement.parentElement.children[3].innerHTML).getTime() < new Date().getTime()) {
-        document.getElementById("startDateUpdate").disabled = true;
-    }
-    else {
-        document.getElementById("startDateUpdate").disabled = false;
-        $("#endDateUpdate").attr("min", new Date().toISOString().slice(0, 10));
-    }
-    if (new Date(e.target.parentElement.parentElement.children[4].innerHTML).getTime() < new Date().getTime()) {
-        document.getElementById("endDateUpdate").disabled = true;
-        document.getElementById("update-price-btn").disabled = true;
-    }
-    else {
-        document.getElementById("endDateUpdate").disabled = false;
-        document.getElementById("update-price-btn").disabled = false;
-        $("#startDateUpdate").attr("min", new Date().toISOString().slice(0, 10));
-        $("#endDateUpdate").attr("min", new Date().toISOString().slice(0, 10));
-    }
-    document.getElementById("startDateUpdate").value = e.target.parentElement.parentElement.children[3].innerHTML;
-    document.getElementById("endDateUpdate").value = e.target.parentElement.parentElement.children[4].innerHTML;
-    document.getElementById("update-price-container").style.display = "grid";
-}
-
-function CloseUpdatePriceModal() {
-    document.getElementById("update-price-container").style.display = "none";
-}
-
-function UpdatePrice() {
-    let startDate = $("#startDateUpdate").val();
-    let endDate = $("#endDateUpdate").val();
-    if (new Date(startDate).getTime() > new Date(endDate).getTime())
-        alert("Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc!");
-    else {
-        $.ajax({
-            url: "http://localhost/quanlycuahang/api/updatePrice",
-            type: "post",
             dataType: "text",
-            data: { "id": idPrice, "idProduct": idProductChoose, "startDate": startDate, "endDate": endDate },
+            data: form_data,
             success: function (result) {
-                if (result == "1") {
-                    let tr = document.querySelectorAll("#prices tr");
-                    alert("Cập nhật thành công!");
-                    tr[priceChoose].children[3].innerHTML = startDate;
-                    tr[priceChoose].children[4].innerHTML = endDate;
-                }
-                else
-                    alert("Cập nhật không thành công vì khoảng thời gian này đã có bảng giá!");
+                document.getElementById("update-product-container").style.display = "none";
+                RefreshProduct();
             }
         });
     }
@@ -562,7 +484,7 @@ function SearchProductChoose() {
                         if (result[i].price != "Chưa có giá") {
                             $("#containerChoose").append(`
                             <div class="product" onclick="AddProductToOrder(event, `+ result[i].id + `)">
-                                <img src="`+ result[i].image + `" alt="image" />
+                                <img src="http://localhost/quanlycuahang/`+ result[i].image + `" alt="image" />
                                 <p>`+ result[i].name + `</p>
                                 <p>`+ result[i].price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + `</p>
                             </div>
@@ -578,6 +500,13 @@ function SearchProductChoose() {
     }
 }
 
+document.getElementById("keyword").addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        SearchProductChoose();
+    }
+});
+
 function RefreshProductChoose() {
     $("#keyword").val("");
     document.getElementById("no-result-product").style.display = "none";
@@ -592,7 +521,7 @@ function RefreshProductChoose() {
             if (data[i].price != "Chưa có giá") {
                 $("#containerChoose").append(`
                     <div class= "product" onclick = "AddProductToOrder(event, `+ data[i].id + `)">
-                        <img src="`+ data[i].image + `" alt="image" />
+                        <img src="http://localhost/quanlycuahang/`+ data[i].image + `" alt="image" />
                         <p>`+ data[i].name + `</p>
                         <p>`+ data[i].price + `</p>
                     </div >
@@ -639,6 +568,13 @@ function SearchBill() {
     }
 }
 
+document.getElementById("keywordBill").addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        SearchBill();
+    }
+});
+
 function RefreshBill() {
     $("#keywordBill").val("");
     let tr = document.querySelectorAll("#bill-table table tr");
@@ -653,7 +589,6 @@ function RefreshBill() {
                             <td>`+ data[i].id + `</td>
                             <td>`+ data[i].quantity + `</td>
                             <td>`+ data[i].createDate + `</td>
-                            <td>`+ data[i].total + `</td>
                             <td>`+ data[i].name + `</td>
                             <td style="text-align: center;">
                                 <img onclick="OpenDetailOrderModal(event, `+ data[i].id + `)"
@@ -702,6 +637,13 @@ function SearchProduct() {
     }
 }
 
+document.getElementById("keywordProduct").addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        SearchProduct();
+    }
+});
+
 function RefreshProduct() {
     $("#keywordProduct").val("");
     let products = document.querySelectorAll("#product-container .product");
@@ -717,75 +659,6 @@ function RefreshProduct() {
                     <p>`+ data[i].name + `</p>
                     <p>`+ data[i].price + `</p>
                 </div>`);
-        }
-    });
-}
-
-function SearchPrice() {
-    let keyword = $("#keywordPrice").val();
-    if (keyword == "")
-        alert("Bạn chưa nhập từ khóa!");
-    else {
-        $.ajax({
-            type: "post",
-            url: "http://localhost/quanlycuahang/api/searchPrice",
-            data: { keyword: keyword },
-            dataType: "json",
-            success: function (response) {
-                if (response.length == 0)
-                    alert("Không tìm thấy bảng giá!");
-                else {
-                    let tr = document.querySelectorAll("#prices tr");
-                    for (let i = 1; i < tr.length; i++) {
-                        tr[i].remove();
-                    }
-                    for (let j = 0; j < response.length; j++) {
-                        $("#prices").append(`
-                        <tr>
-                            <td>`+ response[j].id + `</td>
-                            <td>`+ response[j].nameProduct + `</td>
-                            <td>`+ response[j].price + `</td>
-                            <td>`+ response[j].startDate + `</td>
-                            <td>`+ response[j].endDate + `</td>
-                            <td style="text-align: center;">
-                                <img onclick="OpenUpdatePriceModal(event, `+ response[j].id + `, ` + j + 1 + `, ` + response[j].idProduct + `)"
-                                    src="https://cdn-icons-png.flaticon.com/512/875/875100.png" alt="image" />
-                            </td>
-                        </tr>
-                    `);
-                    }
-                }
-            }
-        });
-    }
-}
-
-function RefreshPrices() {
-    $("#keywordPrice").val("");
-    $.ajax({
-        type: "get",
-        url: "http://localhost/quanlycuahang/api/getPrices",
-        dataType: "json",
-        success: function (response) {
-            let tr = document.querySelectorAll("#prices tr");
-            for (let i = 1; i < tr.length; i++) {
-                tr[i].remove();
-            }
-            for (let j = 0; j < response.length; j++) {
-                $("#prices").append(`
-                    <tr>
-                        <td>`+ response[j].id + `</td>
-                        <td>`+ response[j].nameProduct + `</td>
-                        <td>`+ response[j].price + `</td>
-                        <td>`+ response[j].startDate + `</td>
-                        <td>`+ response[j].endDate + `</td>
-                        <td style="text-align: center;">
-                            <img onclick="OpenUpdatePriceModal(event, `+ response[j].id + `, ` + j + 1 + `, ` + response[j].idProduct + `)"
-                                src="https://cdn-icons-png.flaticon.com/512/875/875100.png" alt="image" />
-                        </td>
-                    </tr>
-                `);
-            }
         }
     });
 }
@@ -838,3 +711,17 @@ function Statistical() {
         });
     }
 }
+
+document.getElementById("startDateSearch").addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        Statistical();
+    }
+});
+
+document.getElementById("endDateSearch").addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        Statistical();
+    }
+});

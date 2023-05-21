@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.1, created on 2023-04-29 19:04:30
+/* Smarty version 4.3.1, created on 2023-05-18 10:23:55
   from 'C:\xampp\htdocs\quanlycuahang\views\admin.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.1',
-  'unifunc' => 'content_644d4e1e1850a5_62870667',
+  'unifunc' => 'content_6465e09b044953_30396705',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a160a5db1f943bc0ab0c114eae55d31460a6ccd6' => 
     array (
       0 => 'C:\\xampp\\htdocs\\quanlycuahang\\views\\admin.tpl',
-      1 => 1682787846,
+      1 => 1684220602,
       2 => 'file',
     ),
   ),
@@ -21,11 +21,10 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:./sellTab.tpl' => 1,
     'file:./billTab.tpl' => 1,
     'file:./productTab.tpl' => 1,
-    'file:./priceTab.tpl' => 1,
     'file:./statisticalTab.tpl' => 1,
   ),
 ),false)) {
-function content_644d4e1e1850a5_62870667 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6465e09b044953_30396705 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,7 +42,7 @@ function content_644d4e1e1850a5_62870667 (Smarty_Internal_Template $_smarty_tpl)
             <p>NTC MILKTEA</p>
         </div>
         <div>
-            <span onclick="UserModal()">Xin chào, Nguyễn Tấn Cường</span>
+            <span onclick="UserModal()" id="name"></span>
             <p id="logout" style="font-size: 1rem; border: 1px solid rgb(155, 9, 9); background-color: rgb(155, 9, 9); color: white; padding: 0.2rem 0.3rem; border-radius: 0.3rem;" onclick="Logout()">Đăng xuất</p>
         </div>
     </div>
@@ -52,8 +51,7 @@ function content_644d4e1e1850a5_62870667 (Smarty_Internal_Template $_smarty_tpl)
         <p class="active" onclick="OpenTab(0)">BÁN HÀNG</p>
         <p onclick="OpenTab(1)">HÓA ĐƠN</p>
         <p onclick="OpenTab(2)">SẢN PHẨM</p>
-        <p onclick="OpenTab(3)">BẢNG GIÁ</p>
-        <p onclick="OpenTab(4)">THỐNG KÊ</p>
+        <p onclick="OpenTab(3)" id="export-excel">THỐNG KÊ</p>
     </div>
     <div id="tab-container">
         <?php $_smarty_tpl->_subTemplateRender("file:./sellTab.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
@@ -61,8 +59,6 @@ function content_644d4e1e1850a5_62870667 (Smarty_Internal_Template $_smarty_tpl)
         <?php $_smarty_tpl->_subTemplateRender("file:./billTab.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
         <?php $_smarty_tpl->_subTemplateRender("file:./productTab.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
-?>
-        <?php $_smarty_tpl->_subTemplateRender("file:./priceTab.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
         <?php $_smarty_tpl->_subTemplateRender("file:./statisticalTab.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
